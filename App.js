@@ -1,29 +1,52 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { TextInput } from 'react-native-web';
+import {useState} from 'react';
 
 export default function App() {
-  const tarefas =[
+
+   const [tarefas,setTarefas] = useState([
     {id: "1", titulo:"Aprender Git"},
     {id: "2", titulo:"Roubar balde Yoshi de alguma kid rica"},
     {id: "3", titulo:"Dar todo meu dinheiro pra nintendo"},
     {id: "4", titulo:"Upar a Jane Doe pro lvl 100"},
     {id: "5", titulo:"dormir"}, 
-    {id: "6", titulo:"Comer uma panela toda"}, 
-  ]
+    {id: "6", titulo:"Comer uma panela toda"},
+   ])
+    
+   const [novaTarefa, setnovaTarefa] = useState('');
+  
+   function addTarefa(){
+    const task = [{
+      id: String(Date.now()),
+      titulo : novaTarefa 
+    }]
+    
+   }
+
+
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>lista de tarefas</Text>
+      <Text style={styles.titulo}>Lista de Tarefas</Text>
 
       <FlatList
         data={tarefas}
         keyExtractor={(item)=>item.id}
         renderItem={({item})=>(
-          <Text style={[styles.item, {color: 'black'}]}>{item.titulo}</Text>
+          <Text style={[styles.item, {color: 'black'}]}>{item.titulo} </Text>
 
         )}/>
 
+        <TextInput
+          style= {styles.input}
+          value= {novaTarefa}
+          onChangeText= { (texto)=> setnovaTarefa(texto)}
+          placeholder= "digite uma tarefa"
+          textAlign= 'center'
+        />
 
-    <TouchableOpacity style={styles.btncAdicionar}> <text>Adicionar tarefas</text> </TouchableOpacity>
+
+    <TouchableOpacity style={styles.btncAdicionar}> <text>Adicionar Tarefa</text> </TouchableOpacity>
     </View>
 
   );
@@ -47,7 +70,7 @@ const styles = StyleSheet.create({
   item:{
     padding:15,
     marginTop:15,
-    backgroundColor:'#65a821', //estilo das tarefinhas
+    backgroundColor:'#4DFF4F', //estilo das tarefinhas
     borderRadius: 15
   },
 
@@ -59,7 +82,19 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     textAlign:'center',
     alignSelf:'center', //força alinhar centro
-    marginBottom: 10
+    marginBottom: 5,
+  },
+
+  input: {
+    borderWidth: 1,
+    width:"90%",
+    margin: 15,
+    borderColor: "#ccc",
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    backgroundColor: 'white',
+    textAlign: 'left',
   }
 
 });
